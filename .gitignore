@@ -1,7 +1,7 @@
 # Created by https://www.gitignore.io/api/python,django
 
 ### local (already git repos) sites ###
-sites/
+/sites/
 
 ### Django ###
 *.log
