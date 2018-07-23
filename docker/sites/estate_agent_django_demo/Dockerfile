@@ -25,7 +25,7 @@ RUN apt-key adv --keyserver hkp://pgp.mit.edu:80 --recv-keys 573BFD6B3D8FBC64107
 #    && ln -sf /dev/stderr /var/log/nginx/error.log
 
 RUN rm -f /etc/nginx/conf.d/default.conf
-COPY ./configs/nginx/conf.d/default.conf /etc/nginx/conf.d/
+COPY docker/sites/estate_agent_django_demo/configs/nginx/conf.d/default.conf /etc/nginx/conf.d/
 
 # Django section
 ENV PYTHONBUFFERED 1
@@ -33,14 +33,16 @@ ENV APPLICATION_ROOT /webapp/
 
 RUN mkdir -p $APPLICATION_ROOT
 WORKDIR $APPLICATION_ROOT
-COPY requirements.txt $APPLICATION_ROOT
+COPY sites/estate_agent_django_demo/requirements.txt $APPLICATION_ROOT
 RUN pip install -r requirements.txt
-ADD . $APPLICATION_ROOT
-COPY docker-entrypoint.sh /usr/local/bin/
+COPY docker/sites/estate_agent_django_demo/docker-entrypoint.sh /usr/local/bin/
 RUN ln -s usr/local/bin/docker-entrypoint.sh / # backwards compat
-COPY ./configs/supervisor/supervisord.conf /etc/supervisor/conf.d/
+COPY docker/sites/estate_agent_django_demo/configs/supervisor/supervisord.conf /etc/supervisor/conf.d/
+RUN mkdir -p $APPLICATION_ROOT/configs/uwsgi
+COPY docker/sites/estate_agent_django_demo/configs/uwsgi/estateagent_uwsgi_docker.ini $APPLICATION_ROOT/configs/uwsgi/
 RUN mkdir /shared
 RUN chmod 777 /shared
+ADD sites/estate_agent_django_demo $APPLICATION_ROOT
 
 # Expose ports for nginx
 EXPOSE 8081 443

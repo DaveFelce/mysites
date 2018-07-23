@@ -2,8 +2,15 @@
 # Prepare log files and start outputting logs to stdout
 # mkdir -p /usr/local/var/log/uwsgi
 
-touch estateagent.log
-chmod 644 estateagent.log
+logfile="estateagent.log"
+if [ -f $logfile ] ; then
+    rm $logfile
+fi
+touch $logfile
+chmod 644 $logfile
+chown www-data $logfile
+chown www-data /webapp
+chown www-data media
 
 # Webapp commands
 python3 manage.py makemigrations
