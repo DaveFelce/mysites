@@ -61,10 +61,10 @@ ENV PGDATA /var/lib/postgresql/data
 RUN mkdir -p "$PGDATA" && chown -R postgres:postgres "$PGDATA" && chmod 777 "$PGDATA" # this 777 will be replaced by 700 at runtime (allows semi-arbitrary "--user" values)
 VOLUME /var/lib/postgresql/data
 
-COPY estate_agent_django_demo_init.sql docker-entrypoint-initdb.d/
-COPY whatsinmyfridge_init.sql docker-entrypoint-initdb.d/
+COPY docker/postgres/estate_agent_django_demo_init.sql docker-entrypoint-initdb.d/
+COPY docker/postgres/whatsinmyfridge_init.sql docker-entrypoint-initdb.d/
 
-COPY docker-entrypoint.sh /usr/local/bin/
+COPY docker/postgres/docker-entrypoint.sh /usr/local/bin/
 RUN ln -s usr/local/bin/docker-entrypoint.sh / # backwards compat
 ENTRYPOINT ["docker-entrypoint.sh"]
 

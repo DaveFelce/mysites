@@ -58,10 +58,10 @@ RUN set -ex; \
 		truncate --size=0 "$LS_SETTINGS_DIR/log4j2.properties"; \
 	fi
 
-COPY docker-entrypoint.sh /
-COPY logstash.conf /
-COPY postgresql-9.4.1212.jre6.jar /
-COPY wait-for-it.sh /usr/local/bin/
+COPY docker/logstash/docker-entrypoint.sh /
+COPY docker/logstash/logstash.conf /
+COPY docker/logstash/postgresql-9.4.1212.jre6.jar /
+COPY docker/logstash/wait-for-it.sh /usr/local/bin/
 RUN ln -s usr/local/bin/wait-for-it.sh /
 
 CMD ["logstash", "-f", "/logstash.conf"]
