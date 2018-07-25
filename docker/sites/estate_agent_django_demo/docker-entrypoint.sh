@@ -1,6 +1,4 @@
 #!/bin/bash
-# Prepare log files and start outputting logs to stdout
-# mkdir -p /usr/local/var/log/uwsgi
 
 logfile="estateagent.log"
 if [ -f $logfile ] ; then
