@@ -3,7 +3,7 @@ version: '2'
 services:
   postgres:
     environment:
-      - POSTGRES_PASSWORD=jT7I6MZsakUj
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
     image: davefelce/mysites_postgres
     volumes:
       - pgdata:/var/lib/postgresql/data
@@ -38,6 +38,12 @@ services:
   estateagent:
     environment:
       - DJANGO_LOCAL=0
+      - DATABASE_NAME=${EA_DATABASE_NAME}
+      - DATABASE_USER=${EA_DATABASE_USER}
+      - DATABASE_PASSWORD=${EA_DATABASE_PASSWORD}
+      - ES_USER=${EA_ES_USER}
+      - ES_PASSWORD=${EA_ES_PASSWORD}
+      - SECRET_KEY=${EA_SECRET_KEY}
     image: davefelce/mysites_estateagentdjangodemo_webapp
     ports:
       - "8000:8000"
@@ -48,6 +54,12 @@ services:
   whatsinmyfridge:
     environment:
       - DJANGO_LOCAL=0
+      - DATABASE_NAME=${WIMF_DATABASE_NAME}
+      - DATABASE_USER=${WIMF_DATABASE_USER}
+      - DATABASE_PASSWORD=${WIMF_DATABASE_PASSWORD}
+      - ES_USER=${WIMF_ES_USER}
+      - ES_PASSWORD=${WIMF_ES_PASSWORD}
+      - SECRET_KEY=${WIMF_SECRET_KEY}
     image: davefelce/mysites_whatsinmyfridge_webapp
     ports:
       - "8001:8001"

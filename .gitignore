@@ -109,3 +109,6 @@ ENV/
 # End of https://www.gitignore.io/api/python,django
 
 whatsinmyfridge.log
+
+# Ignore ENV vars!
+.env
