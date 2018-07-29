@@ -67,7 +67,11 @@ services:
     depends_on:
       - elasticsearch
       - postgres
-
+  webapp:
+    image: davefelce/portfolio_webapp
+    ports:
+      - "8005:8001"
+      - "8080:8082"
 volumes:
   esdata:
     driver: local
