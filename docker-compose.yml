@@ -1,4 +1,4 @@
-version: '2'
+version: '3.6'
 
 services:
   postgres:
@@ -23,13 +23,13 @@ services:
       nofile:
         soft: 65536
         hard: 65536
-    mem_limit: 1g
     cap_add:
       - IPC_LOCK
     volumes:
       - esdata:/usr/share/elasticsearch/data
     ports:
       - 9200:9200
+    restart: always
   logstash:
     image: davefelce/mysites_logstash
     depends_on:
